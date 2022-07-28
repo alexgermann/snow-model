@@ -1,0 +1,86 @@
+﻿<Window x:Class="SnowModel_Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SnowModel_Demo"
+        mc:Ignorable="d"
+        Title="Road Conditions - Snow On Road Model Demo" Height="800" Width="1150">
+    <Grid RenderTransformOrigin="0.501,0.236">
+        <StackPanel
+            Name='ImagePanel'
+            HorizontalAlignment="Center" 
+            Height="73" 
+            VerticalAlignment="Top" 
+            Width="773" Margin="10,10,10.333,0"
+            AllowDrop="True"
+            Drop="ImagePanel_Drop"
+            Background="LightGray"
+        >
+            <TextBlock 
+                FontSize="32"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Center" Margin="163,0,162.333,0"><Run Text="Drag and Drop an Image Here..."/></TextBlock>
+        </StackPanel>
+        <TextBlock Name="FileName" Text="Placeholder" TextAlignment="Center" HorizontalAlignment="Center" Margin="191,192,180,0" TextWrapping="Wrap" FontSize="24" VerticalAlignment="Top" Width="773"/>
+        <Image x:Name="FileImage" HorizontalAlignment="Left" Height="325" Margin="332,229,0,0" VerticalAlignment="Top" Width="483"/>
+        <Grid Name="FileProcessingResults" HorizontalAlignment="Left" Height="141" Margin="190,573,0,0" VerticalAlignment="Top" Width="768">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="Black" BorderThickness="2">
+                <TextBlock  Text="Watson Service Results" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="24" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="Black" BorderThickness="2">
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Trihydro Service Results" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="24" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black" BorderThickness="2">
+                <Grid x:Name="WatsonResults" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0"  Text="Class:" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="WatsonClass" Grid.Row="0" Grid.Column="1"  Text="Class" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0"  Text="Score:" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="WatsonScore" Grid.Row="1" Grid.Column="1"  Text="Score" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            <local:LoadingControl x:Name="WatsonLoader" Margin="15" Visibility="Collapsed" Grid.Row="1" Grid.Column="0"/>
+            <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black" BorderThickness="2">
+                <Grid x:Name="KerasResults" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0"  Text="Class:" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="KerasClass" Grid.Row="0" Grid.Column="1"  Text="Class" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0"  Text="Score:" FontWeight="Bold" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="KerasScore" Grid.Row="1" Grid.Column="1"  Text="Score" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            <local:LoadingControl x:Name="KerasLoader" Margin="15" Visibility="Collapsed" Grid.Row="1" Grid.Column="1"/>
+        </Grid>
+        <ComboBox SelectionChanged="WebcamSelector_SelectionChanged" x:Name="webcamSelector" HorizontalAlignment="Left" Margin="663,141,0,0" VerticalAlignment="Top" FontSize="18" Width="183" Height="37">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=DisplayName}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label x:Name="label" Content="OR - Select from a list of WY webcams:" HorizontalAlignment="Left" Margin="288,141,0,0" FontSize="18" VerticalAlignment="Top" Height="37" Width="331"/>
+    </Grid>
+</Window>
